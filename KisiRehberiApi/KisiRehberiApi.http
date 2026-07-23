@@ -1,0 +1,6 @@
+@KisiRehberiApi_HostAddress = http://localhost:5163
+
+GET {{KisiRehberiApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
