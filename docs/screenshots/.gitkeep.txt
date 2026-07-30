@@ -1,0 +1,2 @@
+# Bu klasöre ekran görüntülerini koyun (01-login.png, 02-contact-list.png, ...).
+# Dosya adları kök README.md içindeki görsel yollarıyla aynı olmalı.
