@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oguzhan\\Desktop\\akanet\\staj1\\kisirehberiapi\\KisiRehberiApi.csproj": {}
+    "C:\\Users\\oguzhan\\Desktop\\akanet\\staj1\\KisiRehberiApi\\KisiRehberiApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oguzhan\\Desktop\\akanet\\staj1\\kisirehberiapi\\KisiRehberiApi.csproj": {
+    "C:\\Users\\oguzhan\\Desktop\\akanet\\staj1\\KisiRehberiApi\\KisiRehberiApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oguzhan\\Desktop\\akanet\\staj1\\kisirehberiapi\\KisiRehberiApi.csproj",
+        "projectUniqueName": "C:\\Users\\oguzhan\\Desktop\\akanet\\staj1\\KisiRehberiApi\\KisiRehberiApi.csproj",
         "projectName": "KisiRehberiApi",
-        "projectPath": "C:\\Users\\oguzhan\\Desktop\\akanet\\staj1\\kisirehberiapi\\KisiRehberiApi.csproj",
+        "projectPath": "C:\\Users\\oguzhan\\Desktop\\akanet\\staj1\\KisiRehberiApi\\KisiRehberiApi.csproj",
         "packagesPath": "C:\\Users\\oguzhan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oguzhan\\Desktop\\akanet\\staj1\\kisirehberiapi\\obj\\",
+        "outputPath": "C:\\Users\\oguzhan\\Desktop\\akanet\\staj1\\KisiRehberiApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,9 +50,23 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.1, )"
             },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
@@ -67,6 +81,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.21.0, )"
             }
           },
           "imports": [
