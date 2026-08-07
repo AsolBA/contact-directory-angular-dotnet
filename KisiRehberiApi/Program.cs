@@ -135,6 +135,7 @@ app.MapPut("/api/contacts/{id:int}", async (int id, Contact updatedContact, AppD
    contact.PhoneNumber = updatedContact.PhoneNumber;
    contact.Email = updatedContact.Email;
    contact.OccupationId = updatedContact.OccupationId;
+   contact.City = updatedContact.City;
    await db.SaveChangesAsync();
    string username = user.FindFirstValue(ClaimTypes.Name) ?? "Admin";
    await logService.LogAsync(username, "UPDATE_CONTACT", $"ID: {id} olan '{contact.FirstName} {contact.LastName}' bilgileri güncellendi.");
