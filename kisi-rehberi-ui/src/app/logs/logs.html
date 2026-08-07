@@ -1,0 +1,143 @@
+<div class="logs-container">
+
+  <!-- ÜST BAŞLIK -->
+  <div class="header-section">
+    <div>
+      <h2>Sistem İşlem Logları</h2>
+      <p>Admin giriş-çıkışları ve kişi işlemlerinin takibi.</p>
+    </div>
+    <button type="button" class="back-btn" (click)="goBack()">
+      Rehbere Dön
+    </button>
+  </div>
+
+  <!-- ÜST: ADMİNLER + CHART -->
+  <!-- Tek kart: solda admin seçimi, sağda pasta grafik -->
+<div class="admin-chart-card">
+
+  <!-- Sol: tıklanabilir admin listesi -->
+  <div class="admin-side">
+    <h3>Adminler</h3>
+    <div class="admin-list">
+      <!-- Her admin satırına tıklanınca selectAdmin çalışır -->
+      <div
+        class="admin-chip"
+        *ngFor="let admin of adminList"
+        [class.active]="selectedAdmin === admin.userName"
+        (click)="selectAdmin(admin.userName)"
+      >
+        <span class="admin-dot" [style.background]="admin.color"></span>
+        {{ admin.userName }}
+      </div>
+
+      <p *ngIf="adminList.length === 0" class="empty-text">
+        Henüz admin logu yok.
+      </p>
+    </div>
+  </div>
+
+  <!-- Sağ: seçilen adminin pasta grafiği -->
+  <div class="chart-side">
+    <h3>
+      <!-- Seçili admin yoksa genel başlık, varsa admin adı -->
+      {{ selectedAdmin ? (selectedAdmin + ' İşlem Dağılımı') : 'İşlem Dağılımı' }}
+    </h3>
+
+    <!-- Pasta veri geldiyse göster -->
+    <div class="pie-wrap" *ngIf="pieChartData">
+      <p-chart type="pie" [data]="pieChartData" [options]="pieChartOptions"></p-chart>
+    </div>
+
+    <!-- Henüz seçim yoksa uyarı -->
+    <p *ngIf="!selectedAdmin" class="empty-text">Bir admin seçin</p>
+  </div>
+
+</div>
+
+  <!-- GİRİŞ / ÇIKIŞ TABLOSU -->
+  <div class="table-card">
+    <h3>Giriş / Çıkış Zamanları</h3>
+
+    <p-table
+      [value]="loginLogoutList"
+      [paginator]="true"
+      [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="{first} - {last} / {totalRecords} kayıt"
+      styleClass="p-datatable-sm p-datatable-striped"
+      [tableStyle]="{ 'min-width': '100%' }"
+    >
+      <ng-template #header>
+        <tr>
+          <th>Kullanıcı</th>
+          <th>İşlem</th>
+          <th>Tarih</th>
+        </tr>
+      </ng-template>
+
+      <ng-template #body let-log>
+        <tr>
+          <td><strong>{{ log.userName }}</strong></td>
+          <td>
+            <span class="badge" [ngClass]="log.actionType">
+              {{ log.actionType }}
+            </span>
+          </td>
+          <td>{{ log.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template #emptymessage>
+        <tr>
+          <td colspan="3" class="empty-text">Giriş / çıkış kaydı yok.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- KİŞİ İŞLEMLERİ TABLOSU -->
+  <div class="table-card">
+    <h3>Kişi İşlemleri</h3>
+
+    <p-table
+      [value]="contactActionList"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="{first} - {last} / {totalRecords} kayıt"
+      styleClass="p-datatable-sm p-datatable-striped"
+      [tableStyle]="{ 'min-width': '100%' }"
+    >
+      <ng-template #header>
+        <tr>
+          <th>Kullanıcı</th>
+          <th>İşlem</th>
+          <th>Detay</th>
+          <th>Tarih</th>
+        </tr>
+      </ng-template>
+
+      <ng-template #body let-log>
+        <tr>
+          <td><strong>{{ log.userName }}</strong></td>
+          <td>
+            <span class="badge" [ngClass]="log.actionType">
+              {{ getActionLabel(log.actionType) }}
+            </span>
+          </td>
+          <td>{{ log.details }}</td>
+          <td>{{ log.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template #emptymessage>
+        <tr>
+          <td colspan="4" class="empty-text">Kişi işlemi kaydı yok.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+</div>

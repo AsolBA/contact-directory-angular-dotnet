@@ -1,0 +1,62 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'primeicons/primeicons.css';
+
+:root {
+  --bg-app: #d9e7f7;           /* Arka plan için çok hafif kırık beyaz */
+  --card-bg: #ffffff;          /* Kartlar için net beyaz */
+  --text-main: #2d3748;        /* Yumuşatılmış koyu gri metin (saf siyah değil) */
+  --text-muted: #718096;       /* İkincil pastel gri metinler */
+  
+  /* Pastel Aksan Renkler */
+  --primary-pastel: #4a6fa5;   /* Pastel Kurumsal Mavi (Ekleme / Ana Buton) */
+  --primary-hover: #3b5984;
+  
+  --success-pastel: #52b788;   /* Pastel Yeşil (Kaydet / Güncelle) */
+  --success-hover: #40916c;
+  
+  --warning-pastel: #e9c46a;   /* Pastel Sarı/Turuncu (Düzenle) */
+  --warning-hover: #d4a373;
+  
+  --danger-pastel: #e63946;    /* Pastel Kırmızı (Sil) */
+  --danger-hover: #c1121f;
+  
+  --border-color: #e2e8f0;
+}
+
+body {
+  background-color: var(--bg-app);
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
+}
+
+.min-screen-height {
+  min-height: 100vh;
+}
+
+.app-navbar {
+  background-color: #1e3a5f;
+  padding: 14px 20px;
+  margin-bottom: 28px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.app-navbar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-navbar-brand {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.2px;
+}
+
+.app-navbar-brand:hover {
+  color: #e2e8f0;
+}

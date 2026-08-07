@@ -1,0 +1,120 @@
+<div class="neo-container">
+  
+  <!-- Üst Başlık ve Butonlar Alanı -->
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <h2 class="neo-title mb-0">📋 Kayıtlı Kişiler</h2>
+    
+    <!-- SAĞ ÜST BUTON GRUBU -->
+<div class="d-flex gap-2 align-items-center">
+  <!-- 🚪 ÇIKIŞ YAP BUTONU -->
+  <button (click)="onLogout()" class="neo-btn-action neo-btn-danger-custom" style="width: auto; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center;">
+    🚪 Çıkış Yap
+  </button>
+
+<!-- 📊 LOG PANELİ BUTONU -->
+  <button (click)="goToLogs()" class="neo-btn-action neo-btn-warning-custom" style="width: auto; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center;">
+    📊 Log Paneli
+  </button>
+
+  <!-- excel butonu  -->
+  <button type="button" (click)="exportToExcel()" class="neo-btn-action neo-btn-success-custom" style="width: auto; padding: 0 16px;">
+  📥 Excel Export
+  </button>
+
+  <!-- ➕ YENİ KİŞİ EKLE BUTONU -->
+  <a routerLink="/add-contact" class="neo-btn-action neo-btn-success-custom" style="width: 180px; flex: none;">
+    ➕ Yeni Kişi Ekle
+  </a>
+</div>
+  </div>
+
+  <hr style="border: 2px solid #323232; margin-bottom: 25px;">
+
+  <!-- ARAMA KUTUSU -->
+  <div class="search">
+    <input
+      type="text"
+      class="search__input"
+      placeholder="Ad, soyad, telefon, e-posta, meslek veya şehir ara..."
+      [(ngModel)]="searchText"
+      (ngModelChange)="onSearchChange()"
+    >
+    <button type="button" class="search__button">
+      <svg class="search__icon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Eğer contacts dizisinin içi doluysa kartları göster (GRID) -->
+  <div class="neo-grid" *ngIf="filteredContacts.length > 0">
+    
+    <!-- *ngFor: Her bir kayıt için kart oluşturma -->
+    <div class="neo-contact-card" *ngFor="let contact of paginatedContacts">
+      
+      <!-- ad-soyad başlığı -->
+      <h3 class="neo-card-name">{{ contact.firstName }} {{ contact.lastName }}</h3>
+      
+      <!-- iletişim detayları  -->
+      <p class="neo-card-info">
+        📞 <strong>Telefon:</strong> {{ contact.phoneNumber }}
+      </p>
+      <p class="neo-card-info">
+        ✉️ <strong>E-posta:</strong> {{ contact.email }}
+      </p>
+      
+      <p class="neo-card-info" *ngIf="contact.city">
+        📍 <strong>Şehir:</strong> {{ contact.city }}
+      </p>
+
+      <p class="neo-card-info" *ngIf="contact.occupation as occ">
+         💼<strong>Meslek:</strong> {{ occ.name }}
+      </p>
+
+      <!-- butonlar -->
+      <div class="neo-btn-group">
+        <!-- Düzenle butonu  -->
+        <a [routerLink]="['/edit-contact', contact.id]" class="neo-btn-action neo-btn-warning-custom">
+          ✏️ Düzenle
+        </a>
+        
+        <!-- Silme fonksiyonu -->
+        <button (click)="contact.id && deleteContact(contact.id)" class="neo-btn-action neo-btn-danger-custom">
+          🗑️ Sil
+        </button>
+      </div>
+
+    </div> 
+
+  </div> 
+
+     <!-- 📄 PRIMENG PAGINATOR EKLENTİSİ -->
+  <div class="paginator-wrap" *ngIf="filteredContacts.length > rows">
+  <p-paginator
+    [first]="first"
+    [rows]="rows"
+    [totalRecords]="filteredContacts.length"
+    [rowsPerPageOptions]="[9, 18, 27]"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="{first} - {last} / {totalRecords} kayıt"
+    (onPageChange)="onPageChange($event)">
+  </p-paginator>
+</div>
+
+  <!-- Eğer rehberde hiç kimse yoksa gösterilecek kutu -->
+  <div class="neo-alert-info mt-4" *ngIf="contacts.length === 0">
+    <h4 class="mb-2">Rehberinizde kayıtlı kimse bulunamadı.</h4>
+    <p class="mb-0" style="font-weight: 500; color: #555;">
+      Hemen sağ üstteki "Yeni Kişi Ekle" düğmesini kullanarak ilk kaydı oluşturabilirsiniz!
+    </p>
+  </div>
+
+  <!-- Arama sonucu boşsa -->
+  <div class="neo-alert-info mt-4" *ngIf="contacts.length > 0 && filteredContacts.length === 0">
+    <h4 class="mb-2">Aramanızla eşleşen kişi bulunamadı.</h4>
+    <p class="mb-0" style="font-weight: 500; color: #555;">
+      Farklı bir kelime deneyin veya arama kutusunu temizleyin.
+    </p>
+  </div>
+
+</div>

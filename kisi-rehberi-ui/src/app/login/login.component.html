@@ -1,0 +1,80 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card shadow-lg border-0 rounded-4 overflow-hidden" style="max-width: 850px; width: 100%; background: #ffffff;">
+    <div class="card-body p-4 p-md-5">
+      <div class="row align-items-center">
+        
+        <!-- SOL TARAF: LOGIN -->
+        <div class="col-md-5 d-flex flex-column align-items-center text-center py-2">
+          <h3 class="fw-bold mb-4" style="color: #1e3a5f;">Admin Girişi</h3>
+          
+          <div class="w-100 mb-3 text-start">
+            <label for="username" class="form-label text-muted small fw-semibold">Kullanıcı Adı</label>
+            <input 
+              id="username" 
+              type="text" 
+              class="form-control form-control-lg rounded-3" 
+              [(ngModel)]="username" 
+              placeholder="admin" />
+          </div>
+
+          <div class="w-100 mb-4 text-start">
+            <label for="password" class="form-label text-muted small fw-semibold">Şifre</label>
+            <input 
+              id="password" 
+              type="password" 
+              class="form-control form-control-lg rounded-3" 
+              [(ngModel)]="password" 
+              placeholder="••••••••" />
+          </div>
+
+          <button 
+            type="button" 
+            class="btn btn-primary btn-lg w-100 rounded-3 fw-semibold shadow-sm" 
+            style="background-color: #1e3a5f; border: none;"
+            (click)="onLogin()">
+            Giriş Yap
+          </button>
+        </div>
+
+        <!-- ORTA TARAF: SEPARATOR (VEYA) -->
+        <div class="col-md-2 d-flex flex-column align-items-center justify-content-center my-3 my-md-0">
+          <div class="d-none d-md-flex flex-column align-items-center">
+            <div style="width: 1px; height: 80px; background-color: #e2e8f0;"></div>
+            <span class="badge bg-light text-secondary rounded-circle my-2 p-2 border">VEYA</span>
+            <div style="width: 1px; height: 80px; background-color: #e2e8f0;"></div>
+          </div>
+          <div class="d-flex d-md-none align-items-center w-100">
+            <hr class="flex-grow-1">
+            <span class="badge bg-light text-secondary rounded-circle mx-2 p-2 border">VEYA</span>
+            <hr class="flex-grow-1">
+          </div>
+        </div>
+
+        <!-- SAĞ TARAF: SIGN UP -->
+        <div class="col-md-5 d-flex flex-column align-items-center text-center py-2">
+          <h3 class="fw-bold mb-3" style="color: #1e3a5f;">Yeni Kayıt</h3>
+          <p class="text-muted small mb-4">Sistemde kayıtlı admin hesabınız yoksa aynı bilgilerle yeni kayıt oluşturabilirsiniz.</p>
+          
+          <button 
+            type="button" 
+            class="btn btn-outline-success btn-lg w-100 rounded-3 fw-semibold shadow-sm" 
+            (click)="onSignUp()">
+            Kayıt Ol
+          </button>
+        </div>
+
+      </div>
+
+      <!-- BİLDİRİM MESAJLARI -->
+      <div *ngIf="errorMessage || successMessage" class="mt-4 text-center">
+        <div *ngIf="errorMessage" class="alert alert-danger mb-0 rounded-3 py-2 small fw-bold">
+          {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="alert alert-success mb-0 rounded-3 py-2 small fw-bold">
+          {{ successMessage }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

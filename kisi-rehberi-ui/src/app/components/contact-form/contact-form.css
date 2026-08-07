@@ -1,0 +1,151 @@
+/* Ana Kart Kapsayıcısı */
+.neo-form-card {
+  --background: #ffffff;
+  --input-focus: #2563eb;
+  --font-color: #1e3a5f;
+  --font-color-sub: #6b7280;
+  --bg-color: #fff;
+  --main-color: #1e3a5f;
+  --border-soft: #e5e7eb;
+  padding: 28px 32px;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+/* Başlık Alanı */
+.neo-form-card > h3 {
+  color: var(--font-color);
+  font-weight: 600;
+  font-size: 22px;
+  margin-bottom: 5px;
+  letter-spacing: 0;
+}
+/* Giriş Alanı Grupları (Label + Input) */
+.input-group-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.input-group-custom label {
+  font-weight: 600;
+  color: var(--font-color);
+  font-size: 15px;
+}
+
+/* Neo-Brutalist İnputlar */
+.neo-input {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--border-soft);
+  background-color: var(--bg-color);
+  box-shadow: none;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--font-color);
+  padding: 10px 15px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.neo-input:focus {
+  background-color: #fff;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Hata Durumunda İnputun Kırmızı Olması */
+.neo-input.is-invalid {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12) !important;
+}
+
+/* Hata Yazısı */
+.error-text {
+  color: #dc3545;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/*(Soldan Sağa Siyah Dolan Bar) */
+.neo-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px;
+  width: 100%;
+  height: 48px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--bg-color);
+  box-shadow: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  text-decoration: none;
+}
+
+/* Ekleme/Düzenleme Moduna Göre Buton Renk Dinamikleri */
+.neo-btn.btn-warning-custom {
+  --bg-color: #0f766e; /* Düzenle kaydet — petrol */
+  background-color: #0f766e;
+  color: #fff;
+}
+.neo-btn.btn-primary-custom {
+  --bg-color: #2563eb; /* Yeni kişi kaydet — mavi */
+  background-color: #2563eb;
+  color: #fff;
+}
+
+/* Butonun İçini Dolduran Siyah Çubuk Efekti */
+.neo-btn:hover {
+  opacity: 0.88;
+}
+.neo-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Bildirim Kutuları (Başarı / Hata) */
+.neo-alert {
+  padding: 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  font-weight: 500;
+  box-shadow: none;
+}
+.neo-alert-success { background-color: #ecfdf5; color: #065f46; border-color: #a7f3d0; }
+.neo-alert-danger { background-color: #fff1f2; color: #9f1239; border-color: #fecdd3; }
+
+.neo-btn.neo-btn-cancel {
+  background-color: #fff;
+  color: #1e3a5f;
+  border: 1px solid #cbd5e1;
+  margin-top: 8px;
+}
+.neo-btn.neo-btn-cancel:hover {
+  background-color: #f8fafc;
+  opacity: 1;
+}
+
+.form-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  width: 100%;
+  margin: 0 0 4px 0;
+}
