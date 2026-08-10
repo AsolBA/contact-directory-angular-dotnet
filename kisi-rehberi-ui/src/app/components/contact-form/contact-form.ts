@@ -21,10 +21,10 @@ export class ContactFormComponent implements OnInit { //sınıf değişkenleri
   occupations: Occupation[] = [];//dropdowndaki meslek listesi
 
   constructor(
-    private fb: FormBuilder, //angular bunları otomatik verir.
-    private contactService: ContactService, 
-    private router: Router, 
-    private route: ActivatedRoute 
+    private readonly fb: FormBuilder, //angular bunları otomatik verir.
+    private readonly contactService: ContactService, 
+    private readonly router: Router, 
+    private readonly route: ActivatedRoute 
   ) { } 
 
   // formu her şeyden önce ramde oluşturuyoruz, angular arayüzü çizmeye çalışırken undefined hatası vermesin
@@ -32,7 +32,7 @@ export class ContactFormComponent implements OnInit { //sınıf değişkenleri
     this.contactForm = this.fb.group({
       firstName: ['', [Validators.required]],        
       lastName: ['', [Validators.required]], //alan adı , başlangıç değeri , kurallar
-      phoneNumber: ['', [Validators.required,Validators.pattern(/^[0-9]{10,11}$/)]],
+      phoneNumber: ['', [Validators.required,Validators.pattern(/^\d{10,11}$/)]],
       email: ['', [Validators.required, Validators.email]], // eposta dogrulaması
       city :[''],
       occupationId:[null] //meslek seçimi
@@ -64,7 +64,7 @@ export class ContactFormComponent implements OnInit { //sınıf değişkenleri
   onPhoneKeyPress(event:KeyboardEvent):void {
     const char = event.key;
     //rakam değilse yazmayı engelle
-    if(!/^[0-9]$/.test(char)){
+    if (!/^\d$/.test(char)) {
       event.preventDefault();
     }
   }

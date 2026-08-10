@@ -57,7 +57,7 @@ export class Logs implements OnInit {
   '#2563eb', '#0f766e', '#d97706', '#e11d48', '#7c3aed', '#0891b2'
   ];
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private readonly http: HttpClient, private readonly router: Router) {}
 
   ngOnInit(): void {
     this.fetchLogs();//sayfa açılınca tablolar
@@ -192,7 +192,7 @@ export class Logs implements OnInit {
   getColorForAdmin(name: string): string {
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
-      hash += name.charCodeAt(i);
+      hash += name.codePointAt(i) ?? 0;
     }
     return this.adminColors[hash % this.adminColors.length];
   }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 // PrimeNG Bileşenleri
@@ -17,7 +17,6 @@ import { InputTextModule } from 'primeng/inputtext';
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule,
     ButtonModule,
     DividerModule,
     InputTextModule
@@ -29,9 +28,9 @@ export class LoginComponent {
   errorMessage: string = '';
   successMessage: string = '';
 
-  private apiUrl = 'http://localhost:5163/api';
+  private readonly apiUrl = 'http://localhost:5163/api';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private readonly http: HttpClient, private readonly router: Router) {}
 
   onLogin() {
     this.errorMessage = '';

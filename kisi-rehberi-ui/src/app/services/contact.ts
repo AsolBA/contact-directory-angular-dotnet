@@ -25,9 +25,9 @@ export interface Contact {
 })                   //liste ve form ayrı ayrı servis açmıyor ortak bunu kullanıyor
 export class ContactService {
   // .NET Minimal API port adresimiz
-  private apiUrl = 'http://localhost:5163/api/contacts'; //bu adres sadece bu dosyada kullanılsın dışardan değiştirilmesin diye private
-  private occupationsUrl = 'http://localhost:5163/api/occupations'; // meslek endpoint'i
-  constructor(private http: HttpClient) { }//httpclient kütüphanesini bu servis içinde kullanabilmek için yapıcı metoda bağlar
+  private readonly apiUrl = 'http://localhost:5163/api/contacts'; //bu adres sadece bu dosyada kullanılsın dışardan değiştirilmesin diye private
+  private readonly occupationsUrl = 'http://localhost:5163/api/occupations'; // meslek endpoint'i
+  constructor(private readonly http: HttpClient) { }//httpclient kütüphanesini bu servis içinde kullanabilmek için yapıcı metoda bağlar
 
   //Tüm kişileri backend'den çeker 
   getContacts(): Observable<Contact[]> {

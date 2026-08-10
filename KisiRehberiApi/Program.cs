@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using KisiRehberiApi.Services;
 
+const string AdminName = "Admin";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,7 +60,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    if (!db.Occupations.Any())//başta tablo boş ise 
+    if (!await db.Occupations.AnyAsync())//başta tablo boş ise 
     {
         db.Occupations.AddRange( //sabit meslekler  
             new Occupation {Name = "Yazılım Geliştirici"},
@@ -69,7 +70,7 @@ using (var scope = app.Services.CreateScope())
             new Occupation {Name = "Satış"},
             new Occupation {Name = "Diğer"}
         );
-    db.SaveChanges();//bellekteki eklemeyi Databaseye yazar
+    await db.SaveChangesAsync();//bellekteki eklemeyi Databaseye yazar
     }
 }
 
@@ -112,7 +113,7 @@ app.MapPost("/api/contacts",async (Contact contact,AppDbContext db,ClaimsPrincip
     await db.SaveChangesAsync();
     // 🪵 KİŞİ EKLEME LOG KAYDI
     //tokenden admin kaydı alınıyor
-    string username = user.FindFirstValue(ClaimTypes.Name) ?? "Admin";
+    string username = user.FindFirstValue(ClaimTypes.Name) ?? AdminName;
     await logService.LogAsync(username, "CREATE_CONTACT", $"'{contact.FirstName} {contact.LastName}' rehbere eklendi.");
     return Results.Created($"/api/contacts/{contact.Id}",contact);
 }).RequireAuthorization();
@@ -138,7 +139,7 @@ app.MapPut("/api/contacts/{id:int}", async (int id, Contact updatedContact, AppD
    contact.OccupationId = updatedContact.OccupationId;
    contact.City = updatedContact.City;
    await db.SaveChangesAsync();
-   string username = user.FindFirstValue(ClaimTypes.Name) ?? "Admin";
+   string username = user.FindFirstValue(ClaimTypes.Name) ?? AdminName;
    await logService.LogAsync(username, "UPDATE_CONTACT", $"ID: {id} olan '{contact.FirstName} {contact.LastName}' bilgileri güncellendi.");
    return Results.Ok(contact); 
    //adresteki id ile veritabanındaki mevcut kişi bulunur gelen verileri updatedContact üzerine yazar ve saveChangesasync ile contacts.db dosyasını günceller.
@@ -152,7 +153,7 @@ app.MapDelete("/api/contacts/{id:int}",async (int id, AppDbContext db,ClaimsPrin
 
     db.Contacts.Remove(contact);
     await db.SaveChangesAsync();
-    string username = user.FindFirstValue(ClaimTypes.Name) ?? "Admin";
+    string username = user.FindFirstValue(ClaimTypes.Name) ?? AdminName;
     await logService.LogAsync(username, "DELETE_CONTACT", $"ID: {id} olan '{contact.FirstName} {contact.LastName}' kişisi silindi.");
     return Results.Ok("Kişi başarıyla silindi");
     //adresten gelen id ile kişiyi veritabanında arar,bulunca remove ile silme listesine alır ve savechangesasync() ile kaydı contacts.db dosyasından kalıcı olarak siler. 
@@ -242,7 +243,7 @@ app.MapPost("/api/login", async (UserLoginDto dto, AppDbContext db, IConfigurati
     {   //tokenin içine yazılan küçük bilgiler id username rol gibi 
         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
         new Claim(ClaimTypes.Name, user.Username),
-        new Claim(ClaimTypes.Role, "Admin")
+        new Claim(ClaimTypes.Role, AdminName)
     };
 
     var tokenDescriptor = new SecurityTokenDescriptor
@@ -309,4 +310,4 @@ app.MapPost("/api/logout", async (ClaimsPrincipal user, ILogService logService) 
     return Results.Ok("Çıkış kaydedildi.");
 }).RequireAuthorization();
 
-app.Run();
+await app.RunAsync();

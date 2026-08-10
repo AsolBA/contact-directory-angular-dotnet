@@ -25,9 +25,9 @@ export class ContactList implements OnInit {
   rows: number = 9;
 
   constructor(
-    private contactService: ContactService, // projede api aracısını kullanmak için yazılmış
-    private router: Router, // Çıkış yapınca Login ekranına yönlendirme yapabilmek için eklendi
-    private http:HttpClient
+    private readonly contactService: ContactService, // projede api aracısını kullanmak için yazılmış
+    private readonly router: Router, // Çıkış yapınca Login ekranına yönlendirme yapabilmek için eklendi
+    private readonly http:HttpClient
   ) {}
 
   ngOnInit(): void { // ngoninit sayfa hazır olunca bir kez çalışan yer
