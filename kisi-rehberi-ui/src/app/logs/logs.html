@@ -20,7 +20,8 @@
     <h3>Adminler</h3>
     <div class="admin-list">
       <!-- Her admin satırına tıklanınca selectAdmin çalışır -->
-      <div
+      <button
+        type = "button"
         class="admin-chip"
         *ngFor="let admin of adminList"
         [class.active]="selectedAdmin === admin.userName"
@@ -28,7 +29,7 @@
       >
         <span class="admin-dot" [style.background]="admin.color"></span>
         {{ admin.userName }}
-      </div>
+    </button>
 
       <p *ngIf="adminList.length === 0" class="empty-text">
         Henüz admin logu yok.
@@ -70,9 +71,9 @@
     >
       <ng-template #header>
         <tr>
-          <th>Kullanıcı</th>
-          <th>İşlem</th>
-          <th>Tarih</th>
+          <th scope ="col">Kullanıcı</th>
+          <th scope = "col">İşlem</th>
+          <th scope = "col">Tarih</th>
         </tr>
       </ng-template>
 
@@ -112,10 +113,10 @@
     >
       <ng-template #header>
         <tr>
-          <th>Kullanıcı</th>
-          <th>İşlem</th>
-          <th>Detay</th>
-          <th>Tarih</th>
+          <th scope = "col">Kullanıcı</th>
+          <th scope = "col">İşlem</th>
+          <th scope = "col">Detay</th>
+          <th scope = "col">Tarih</th>
         </tr>
       </ng-template>
 

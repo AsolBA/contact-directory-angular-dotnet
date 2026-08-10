@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using KisiRehberiApi;
-using System.Diagnostics.Contracts;
 
+using System.Diagnostics.Contracts;
+namespace KisiRehberiApi;
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }

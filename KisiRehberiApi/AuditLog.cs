@@ -1,5 +1,6 @@
 using System;
 //veritabanındaki log satırının şablonudur.
+namespace KisiRehberiApi;
 public class AuditLog
 {
     public int Id { get; set; }

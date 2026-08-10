@@ -1,4 +1,4 @@
-using KisiRehberiApi;
+namespace KisiRehberiApi;
 
 
 public class Contact

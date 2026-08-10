@@ -16,9 +16,8 @@
 
     <!-- Ad Alanı -->
     <div class="input-group-custom">
-      <label>Ad</label>
-      <!-- eğer kutuya fareyle dokunulmuşsa ve içi boş geçilmişse kutunun gölgesini kırmızıya boyar -->
-      <input type="text" class="neo-input" formControlName="firstName" 
+      <label for="firstName">Ad</label>      <!-- eğer kutuya fareyle dokunulmuşsa ve içi boş geçilmişse kutunun gölgesini kırmızıya boyar -->
+      <input id="firstName" type="text" class="neo-input" formControlName="firstName"
              [ngClass]="{'is-invalid': contactForm.get('firstName')?.touched && contactForm.get('firstName')?.invalid}">
       <!-- ad alanı dokunulduysa ve boş geçildiyse kırmızı yanar -->
       <div class="error-text" *ngIf="contactForm.get('firstName')?.touched && contactForm.get('firstName')?.invalid">
@@ -28,8 +27,8 @@
 
     <!-- Soyad Alanı -->
     <div class="input-group-custom">
-      <label>Soyad</label>
-      <input type="text" class="neo-input" formControlName="lastName"
+      <label for="lastName">Soyad</label>
+      <input id="lastName" type="text" class="neo-input" formControlName="lastName"
              [ngClass]="{'is-invalid': contactForm.get('lastName')?.touched && contactForm.get('lastName')?.invalid}">
       <div class="error-text" *ngIf="contactForm.get('lastName')?.touched && contactForm.get('lastName')?.invalid">
         Soyad alanı boş bırakılamaz.
@@ -38,10 +37,10 @@
 
     <!-- Telefon Numarası Alanı -->
     <div class="input-group-custom">
-      <label>Telefon Numarası</label>
-      <input type="text"
-       class="neo-input"
-       formControlName="phoneNumber"
+      <label for="phoneNumber">Telefon Numarası</label>
+      <input id="phoneNumber" type="text"
+      class="neo-input"
+      formControlName="phoneNumber"
        placeholder="Örn: 05551112233"
        maxlength="11"
        (keypress)="onPhoneKeyPress($event)"
@@ -58,8 +57,8 @@
 
     <!-- E-posta Adresi Alanı -->
     <div class="input-group-custom">
-      <label>E-posta Adresi</label>
-      <input type="email" class="neo-input" formControlName="email" placeholder="Örn: ornek@mail.com"
+      <label for="email">E-posta Adresi</label>
+      <input id="email" type="email" class="neo-input" formControlName="email" placeholder="Örn: ornek@mail.com"
              [ngClass]="{'is-invalid': contactForm.get('email')?.touched && contactForm.get('email')?.invalid}">
       <div class="error-text" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
         <!-- iki aşamalı kontrol eğer bomboş ise required eğer dolu ama @ ve düzgün uzantı yoksa ikincisi-->
@@ -69,18 +68,18 @@
     </div>
 
     <div class="input-group-custom">
-        <label>Şehir</label>
-        <input type ="text"
-               class = "neo-input"
-               formControlName="city"
+        <label for="city">Şehir</label>
+        <input id="city" type="text"
+        class="neo-input"
+        formControlName="city"
                placeholder="Örn:İstanbul"
         >
     </div>
 
 <!-- Meslek Dropdown -->
 <div class="input-group-custom">
-  <label>Meslek</label>
-  <select class="neo-input" formControlName="occupationId">
+  <label for="occupationId">Meslek</label>
+  <select id="occupationId" class="neo-input" formControlName="occupationId">
     <!-- value null: meslek seçilmeden kayıt mümkün -->
     <option [ngValue]="null">Meslek seçiniz</option>
 

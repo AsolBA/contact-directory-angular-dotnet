@@ -1,5 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using KisiRehberiApi;
+namespace KisiRehberiApi.Services;
+
 
 
 public class LogService : ILogService
