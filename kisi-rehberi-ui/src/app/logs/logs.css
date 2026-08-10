@@ -54,13 +54,22 @@
 }
 
 .stat-card,
-.chart-card,
+.chart-card {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+}
+
 .table-card {
   background: #fff;
   border: 1px solid #cbd5e1;
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   padding: 20px;
+  overflow: visible;
+  margin-bottom: 24px;
 }
 
 .stat-card h3,
@@ -78,11 +87,6 @@
   font-weight: 700;
   color: #2563eb;
   line-height: 1.1;
-}
-
-
-.table-card {
-  overflow: visible;
 }
 
 .badge {
@@ -158,6 +162,7 @@
   border-radius: 10px;
   font-weight: 600;
   color: #1e3a5f;
+  cursor: pointer;
 }
 
 .admin-dot {
@@ -165,10 +170,6 @@
   height: 12px;
   border-radius: 50%;
   flex-shrink: 0;
-}
-
-.table-card {
-  margin-bottom: 24px;
 }
 
 .empty-text {
@@ -211,10 +212,6 @@
 }
 
 /* Seçili admin vurgusu */
-.admin-chip {
-  cursor: pointer; /* tıklanabilir olduğunu gösterir */
-}
-
 .admin-chip.active {
   border-color: #2563eb;
   background: #eff6ff;

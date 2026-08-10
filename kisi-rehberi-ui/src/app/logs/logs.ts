@@ -42,7 +42,7 @@ export class Logs implements OnInit {
   chartData: any;//grafiğin datası
   chartOptions: any;//grafiğin ayarları
   currentPage: number = 1;//şuan hangi sayfadayız
-   pageSize: number = 50;//bir sayfadan kaç log çekilecek
+  readonly pageSize: number = 50;//bir sayfadan kaç log çekilecek
   loginLogoutList: AuditLog[] = [];//sadece login/logout olanlar
   contactActionList: AuditLog[] = [];//sadece kişi crud olanlar
   adminList: AdminChip[] = [];// sol taraftaki admin list
@@ -53,7 +53,7 @@ export class Logs implements OnInit {
   // İstatistik Kartları için değişkenler
   totalLogs: number = 0;
   uniqueAdmins: number = 0;
-  private adminColors: string[] = [
+  private readonly adminColors: string[] = [
   '#2563eb', '#0f766e', '#d97706', '#e11d48', '#7c3aed', '#0891b2'
   ];
 
