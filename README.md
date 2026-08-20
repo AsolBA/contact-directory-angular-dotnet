@@ -27,7 +27,7 @@ staj1/
 - [.NET SDK](https://dotnet.microsoft.com/download) (9 önerilir)
 - [Node.js](https://nodejs.org/) ve npm
 - [PostgreSQL](https://www.postgresql.org/)
-- (İsteğe bağlı) Visual Studio / VS Code / Cursor
+- (İsteğe bağlı) Visual Studio / VS Code
 
 ### Docker ile çalıştırma
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)

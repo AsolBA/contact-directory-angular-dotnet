@@ -61,6 +61,14 @@ export class ContactList implements OnInit {
     );
   }
  
+  get uniqueOccupationCount(): number {
+    return new Set(this.contacts.map(c => c.occupation?.name).filter(Boolean)).size;
+  }
+
+  get uniqueCityCount(): number {
+    return new Set(this.contacts.map(c => c.city?.trim()).filter(Boolean)).size;
+  }
+
   get paginatedContacts(): Contact[] {
   return this.filteredContacts.slice(this.first, this.first + this.rows);
 }

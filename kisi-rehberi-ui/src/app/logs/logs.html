@@ -1,144 +1,183 @@
-<div class="logs-container">
-
-  <!-- ÜST BAŞLIK -->
-  <div class="header-section">
-    <div>
-      <h2>Sistem İşlem Logları</h2>
-      <p>Admin giriş-çıkışları ve kişi işlemlerinin takibi.</p>
-    </div>
-    <button type="button" class="back-btn" (click)="goBack()">
-      Rehbere Dön
-    </button>
-  </div>
-
-  <!-- ÜST: ADMİNLER + CHART -->
-  <!-- Tek kart: solda admin seçimi, sağda pasta grafik -->
-<div class="admin-chart-card">
-
-  <!-- Sol: tıklanabilir admin listesi -->
-  <div class="admin-side">
-    <h3>Adminler</h3>
-    <div class="admin-list">
-      <!-- Her admin satırına tıklanınca selectAdmin çalışır -->
-      <button
-        type = "button"
-        class="admin-chip"
-        *ngFor="let admin of adminList"
-        [class.active]="selectedAdmin === admin.userName"
-        (click)="selectAdmin(admin.userName)"
-      >
-        <span class="admin-dot" [style.background]="admin.color"></span>
-        {{ admin.userName }}
-    </button>
-
-      <p *ngIf="adminList.length === 0" class="empty-text">
-        Henüz admin logu yok.
-      </p>
-    </div>
-  </div>
-
-  <!-- Sağ: seçilen adminin pasta grafiği -->
-  <div class="chart-side">
-    <h3>
-      <!-- Seçili admin yoksa genel başlık, varsa admin adı -->
-      {{ selectedAdmin ? (selectedAdmin + ' İşlem Dağılımı') : 'İşlem Dağılımı' }}
-    </h3>
-
-    <!-- Pasta veri geldiyse göster -->
-    <div class="pie-wrap" *ngIf="pieChartData">
-      <p-chart type="pie" [data]="pieChartData" [options]="pieChartOptions"></p-chart>
+<div class="logs-page">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 40 40" width="32" height="32" fill="none">
+        <text x="3" y="29" font-family="Arial, sans-serif" font-weight="800" font-size="22" fill="#FFFFFF" letter-spacing="-1">K</text>
+        <text x="18" y="29" font-family="Arial, sans-serif" font-weight="800" font-size="22" fill="#FFFFFF" letter-spacing="-1" opacity="0.6">R</text>
+      </svg>
+      <span>Kişi Rehberi</span>
     </div>
 
-    <!-- Henüz seçim yoksa uyarı -->
-    <p *ngIf="!selectedAdmin" class="empty-text">Bir admin seçin</p>
-  </div>
+    <nav class="sidebar-nav">
+      <a routerLink="/contacts" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Kişiler
+      </a>
+      <a routerLink="/logs" class="nav-item active">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        Log Paneli
+      </a>
+    </nav>
+  </aside>
 
-</div>
+  <main class="content">
+    <div class="logs-container">
+      <div class="header-section">
+        <div>
+          <h2>Sistem İşlem Logları</h2>
+          <p>Admin giriş-çıkışları ve kişi işlemlerinin denetimi</p>
+        </div>
+        <button type="button" class="back-btn" (click)="goBack()">Rehbere Dön</button>
+      </div>
 
-  <!-- GİRİŞ / ÇIKIŞ TABLOSU -->
-  <div class="table-card">
-    <h3>Giriş / Çıkış Zamanları</h3>
+      <div class="top-grid">
+        <div class="stat-card">
+          <div class="stat-inner">
+            <div class="stat-icon-box stat-icon-total">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+            </div>
+            <div>
+              <div class="stat-title">Toplam Log</div>
+              <span class="stat-value">{{ totalLogs }}</span>
+            </div>
+          </div>
+        </div>
 
-    <p-table
-      [value]="loginLogoutList"
-      [paginator]="true"
-      [rows]="5"
-      [rowsPerPageOptions]="[5, 10, 20]"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="{first} - {last} / {totalRecords} kayıt"
-      styleClass="p-datatable-sm p-datatable-striped"
-      [tableStyle]="{ 'min-width': '100%' }"
-    >
-      <ng-template #header>
-        <tr>
-          <th scope ="col">Kullanıcı</th>
-          <th scope = "col">İşlem</th>
-          <th scope = "col">Tarih</th>
-        </tr>
-      </ng-template>
+        <div class="stat-card">
+          <div class="stat-inner">
+            <div class="stat-icon-box stat-icon-admin">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div>
+              <div class="stat-title">Aktif Admin</div>
+              <span class="stat-value">{{ uniqueAdmins }}</span>
+            </div>
+          </div>
+        </div>
 
-      <ng-template #body let-log>
-        <tr>
-          <td><strong>{{ log.userName }}</strong></td>
-          <td>
-            <span class="badge" [ngClass]="log.actionType">
-              {{ log.actionType }}
-            </span>
-          </td>
-          <td>{{ log.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</td>
-        </tr>
-      </ng-template>
+        <div class="stat-card">
+          <div class="stat-inner">
+            <div class="stat-icon-box stat-icon-today">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v18h18"/>
+                <path d="M7 14l4-4 3 3 4-5"/>
+              </svg>
+            </div>
+            <div>
+              <div class="stat-title">Bugünkü İşlem</div>
+              <span class="stat-value">{{ todayActionsCount }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <ng-template #emptymessage>
-        <tr>
-          <td colspan="3" class="empty-text">Giriş / çıkış kaydı yok.</td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
+      <div class="admin-chart-card">
+        <div class="admin-side">
+          <h3>Aktif Adminler</h3>
+          <div class="admin-list">
+            <button
+              type="button"
+              class="admin-chip"
+              *ngFor="let admin of adminList"
+              [class.active]="selectedAdmin === admin.userName"
+              (click)="selectAdmin(admin.userName)"
+            >
+              <span class="admin-dot" [style.background]="admin.color"></span>
+              {{ admin.userName }}
+            </button>
 
-  <!-- KİŞİ İŞLEMLERİ TABLOSU -->
-  <div class="table-card">
-    <h3>Kişi İşlemleri</h3>
+            <p *ngIf="adminList.length === 0" class="empty-text">Henüz admin logu yok.</p>
+          </div>
+        </div>
 
-    <p-table
-      [value]="contactActionList"
-      [paginator]="true"
-      [rows]="10"
-      [rowsPerPageOptions]="[5, 10, 20]"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="{first} - {last} / {totalRecords} kayıt"
-      styleClass="p-datatable-sm p-datatable-striped"
-      [tableStyle]="{ 'min-width': '100%' }"
-    >
-      <ng-template #header>
-        <tr>
-          <th scope = "col">Kullanıcı</th>
-          <th scope = "col">İşlem</th>
-          <th scope = "col">Detay</th>
-          <th scope = "col">Tarih</th>
-        </tr>
-      </ng-template>
+        <div class="chart-side">
+          <h3>İşlem Dağılımı</h3>
+          <div class="pie-wrap" *ngIf="pieChartData">
+            <p-chart type="doughnut" [data]="pieChartData" [options]="pieChartOptions"></p-chart>
+          </div>
+          <p *ngIf="!selectedAdmin" class="empty-text">Bir admin seçin</p>
+        </div>
+      </div>
 
-      <ng-template #body let-log>
-        <tr>
-          <td><strong>{{ log.userName }}</strong></td>
-          <td>
-            <span class="badge" [ngClass]="log.actionType">
-              {{ getActionLabel(log.actionType) }}
-            </span>
-          </td>
-          <td>{{ log.details }}</td>
-          <td>{{ log.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</td>
-        </tr>
-      </ng-template>
+      <div class="tables-grid">
+        <div class="table-card login-table-card">
+          <h3>Giriş / Çıkış</h3>
+          <p-table
+            [value]="loginLogoutList"
+            [paginator]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 15]"
+            [showCurrentPageReport]="false"
+            currentPageReportTemplate="{first} - {last} / {totalRecords} kayıt"
+            styleClass="p-datatable-sm p-datatable-striped"
+            [tableStyle]="{ 'min-width': '100%' }"
+          >
+            <ng-template #header>
+              <tr>
+                <th>Kullanıcı</th>
+                <th>İşlem</th>
+                <th>Tarih</th>
+              </tr>
+            </ng-template>
+            <ng-template #body let-log>
+              <tr>
+                <td><strong>{{ log.userName }}</strong></td>
+                <td><span class="badge" [ngClass]="log.actionType">{{ log.actionType }}</span></td>
+                <td>{{ log.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
 
-      <ng-template #emptymessage>
-        <tr>
-          <td colspan="4" class="empty-text">Kişi işlemi kaydı yok.</td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-
+        <div class="table-card">
+          <h3>Kişi İşlemleri</h3>
+          <p-table
+            [value]="contactActionList"
+            [paginator]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 15]"
+            [showCurrentPageReport]="false"
+            currentPageReportTemplate="{first} - {last} / {totalRecords} kayıt"
+            styleClass="p-datatable-sm p-datatable-striped"
+            [tableStyle]="{ 'min-width': '100%' }"
+          >
+            <ng-template #header>
+              <tr>
+                <th>Kullanıcı</th>
+                <th>İşlem</th>
+                <th>Detay</th>
+                <th>Tarih</th>
+              </tr>
+            </ng-template>
+            <ng-template #body let-log>
+              <tr>
+                <td><strong>{{ log.userName }}</strong></td>
+                <td><span class="badge" [ngClass]="log.actionType">{{ getActionLabel(log.actionType) }}</span></td>
+                <td>{{ log.details }}</td>
+                <td>{{ log.createdAt | date:'dd.MM.yyyy HH:mm:ss' }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </main>
 </div>

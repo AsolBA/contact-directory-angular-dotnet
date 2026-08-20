@@ -1,80 +1,69 @@
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-  <div class="card shadow-lg border-0 rounded-4 overflow-hidden" style="max-width: 850px; width: 100%; background: #ffffff;">
-    <div class="card-body p-4 p-md-5">
-      <div class="row align-items-center">
-        
-        <!-- SOL TARAF: LOGIN -->
-        <div class="col-md-5 d-flex flex-column align-items-center text-center py-2">
-          <h3 class="fw-bold mb-4" style="color: #1e3a5f;">Admin Girişi</h3>
-          
-          <div class="w-100 mb-3 text-start">
-            <label for="username" class="form-label text-muted small fw-semibold">Kullanıcı Adı</label>
-            <input 
-              id="username" 
-              type="text" 
-              class="form-control form-control-lg rounded-3" 
-              [(ngModel)]="username" 
-              placeholder="admin" />
-          </div>
+<div class="login-page">
 
-          <div class="w-100 mb-4 text-start">
-            <label for="password" class="form-label text-muted small fw-semibold">Şifre</label>
-            <input 
-              id="password" 
-              type="password" 
-              class="form-control form-control-lg rounded-3" 
-              [(ngModel)]="password" 
-              placeholder="••••••••" />
-          </div>
-
-          <button 
-            type="button" 
-            class="btn btn-primary btn-lg w-100 rounded-3 fw-semibold shadow-sm" 
-            style="background-color: #1e3a5f; border: none;"
-            (click)="onLogin()">
-            Giriş Yap
-          </button>
-        </div>
-
-        <!-- ORTA TARAF: SEPARATOR (VEYA) -->
-        <div class="col-md-2 d-flex flex-column align-items-center justify-content-center my-3 my-md-0">
-          <div class="d-none d-md-flex flex-column align-items-center">
-            <div style="width: 1px; height: 80px; background-color: #e2e8f0;"></div>
-            <span class="badge bg-light text-secondary rounded-circle my-2 p-2 border">VEYA</span>
-            <div style="width: 1px; height: 80px; background-color: #e2e8f0;"></div>
-          </div>
-          <div class="d-flex d-md-none align-items-center w-100">
-            <hr class="flex-grow-1">
-            <span class="badge bg-light text-secondary rounded-circle mx-2 p-2 border">VEYA</span>
-            <hr class="flex-grow-1">
-          </div>
-        </div>
-
-        <!-- SAĞ TARAF: SIGN UP -->
-        <div class="col-md-5 d-flex flex-column align-items-center text-center py-2">
-          <h3 class="fw-bold mb-3" style="color: #1e3a5f;">Yeni Kayıt</h3>
-          <p class="text-muted small mb-4">Sistemde kayıtlı admin hesabınız yoksa aynı bilgilerle yeni kayıt oluşturabilirsiniz.</p>
-          
-          <button 
-            type="button" 
-            class="btn btn-outline-success btn-lg w-100 rounded-3 fw-semibold shadow-sm" 
-            (click)="onSignUp()">
-            Kayıt Ol
-          </button>
-        </div>
-
-      </div>
-
-      <!-- BİLDİRİM MESAJLARI -->
-      <div *ngIf="errorMessage || successMessage" class="mt-4 text-center">
-        <div *ngIf="errorMessage" class="alert alert-danger mb-0 rounded-3 py-2 small fw-bold">
-          {{ errorMessage }}
-        </div>
-        <div *ngIf="successMessage" class="alert alert-success mb-0 rounded-3 py-2 small fw-bold">
-          {{ successMessage }}
-        </div>
-      </div>
-
+  <aside class ="login-brand">
+    <div class="brand-logo">
+      <svg viewBox="0 0 40 40" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="3" y="29" font-family="Arial, sans-serif" font-weight="800" font-size="22" fill="#0B1F3A" letter-spacing="-1">K</text>
+        <text x="18" y="29" font-family="Arial, sans-serif" font-weight="800" font-size="22" fill="#0B1F3A" letter-spacing="-1" opacity="0.6">R</text>
+      </svg>
     </div>
-  </div>
+    <h1>Kişi Rehberi</h1>
+    <p class ="brand-subtitle">Kurumsal İletişim Yönetimi</p>
+    <div class="brand-line"></div>
+    <ul class="brand-features">
+      <li>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 12l2 2 4-4"/>
+          <circle cx="12" cy="12" r="10"/>
+        </svg>
+        Güvenli JWT girişi
+      </li>
+      <li>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        Denetim Kayıtları
+      </li>
+      <li>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Merkezi Kişi Yönetimi
+      </li>
+    </ul>
+  </aside>
+
+  <main class="login-main">
+    <div class="login-card">
+      <div class="card-logo">
+        <svg viewBox="0 0 40 40" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="3" y="29" font-family="Arial, sans-serif" font-weight="800" font-size="22" fill="#FFFFFF" letter-spacing="-1">K</text>
+          <text x="18" y="29" font-family="Arial, sans-serif" font-weight="800" font-size="22" fill="#FFFFFF" letter-spacing="-1" opacity="0.6">R</text>
+        </svg>
+      </div>
+      <h2>Admin Girişi</h2>
+      <p class="card-subtitle">Kurum hesabınızla devam edin</p>
+
+      <label for="username">Kullanıcı Adı</label>
+      <input id="username" type="text" [(ngModel)]="username" placeholder="admin" />
+
+      <label for="password">Şifre</label>
+      <input id="password" type="password" [(ngModel)]="password" placeholder="********"/>
+
+      <button type="button" class="btn-primary" (click)="onLogin()">Giriş Yap</button>
+
+      <div class="divider"><span>veya</span></div>
+
+      <button type="button" class="btn-outline" (click)="onSignUp()">Yeni Admin Kaydı </button>
+
+      <div *ngIf="errorMessage" class="alert alert-error">{{errorMessage}}</div>
+      <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
+    </div>
+  </main>
 </div>

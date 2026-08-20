@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
 import 'chart.js/auto';
@@ -31,6 +31,7 @@ interface AdminChip {
   imports: [
     CommonModule,
     DatePipe,
+    RouterModule,
     TableModule,
     ChartModule
   ],
@@ -53,6 +54,7 @@ export class Logs implements OnInit {
   // İstatistik Kartları için değişkenler
   totalLogs: number = 0;
   uniqueAdmins: number = 0;
+  todayActionsCount: number = 0; // ekranda görünen "Bugünkü İşlem" (şu an sadece çekilen sayfa/log listesi içinden)
   private readonly adminColors: string[] = [
   '#2563eb', '#0f766e', '#d97706', '#e11d48', '#7c3aed', '#0891b2'
   ];
@@ -87,6 +89,16 @@ export class Logs implements OnInit {
 
         // Toplam kayıt sayısı
         this.totalLogs = res.totalCount ?? res.TotalCount ?? 0;
+
+        // Bugünkü işlem sayısı (şu an sadece ekranda gösterilen `logs` içinden hesaplanır)
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        this.todayActionsCount = this.logs.filter((l) => {
+          const d = new Date(l.createdAt);
+          if (Number.isNaN(d.getTime())) return false;
+          d.setHours(0, 0, 0, 0);
+          return d.getTime() === today.getTime();
+        }).length;
 
         // Giriş-çıkış tablosu için filtre
         this.loginLogoutList = this.logs.filter(l => {
@@ -163,7 +175,7 @@ export class Logs implements OnInit {
           maintainAspectRatio: false,
           plugins: {
             legend: {
-              position: 'bottom',
+              position: 'right',
               labels: {
                 color: '#1e3a5f',
                 font: { weight: '600' }

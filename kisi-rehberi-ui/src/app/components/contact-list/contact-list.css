@@ -1,209 +1,307 @@
-
-.neo-container {
-  --main-color: #1e3a5f;
-  --bg-soft: #f5f7fa;
-  --border-soft: #e5e7eb;
-  --text-muted: #6b7280;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 20px;
-}
-.neo-title {
-  color: var(--main-color);
-  font-weight: 600;
-  font-size: 22px;
-  letter-spacing: 0;
-  margin: 0;
+:host {
+  --navy: #0B1F3A;
+  --teal: #1A6B6B;
+  --bg: #F4F6F8;
+  --white: #FFFFFF;
+  --border: #E2E8F0;
+  --text-muted: #5B6570;
+  --danger: #DC2626;
 }
 
-/*kartların yan yana dizilmesini sağlayan ızgara sistemi*/
-.neo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 25px; /*kartlar arası boşluk*/
-  margin-top: 20px; /*ızgaranın üst taraftaki elemanlarla arasına boşluk koyar */
+/* ANA LAYOUT */
+.page-layout {
+  display: flex;
+  min-height: 100vh;
 }
-/*ekran genişliğine göre kartları otomatik sığdırır.boş yer kalırsa ekranı eşit kaplar*/
 
-.neo-contact-card {
-  background: #fff;
-  border: 1px solid #cbd5e1;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  padding: 20px;
+/* SOL SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: var(--navy);
+  color: var(--white);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  transition: box-shadow 0.2s ease;
-  position: relative;
-}
-.neo-contact-card:hover {
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  padding: 28px 0;
+  flex-shrink: 0;
 }
 
-/*ad soyad başlığı kart içi */
-.neo-card-name {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--main-color);
-  border-bottom: 1px solid var(--border-soft);
-  padding-bottom: 8px;
-  margin: 0;
-}
-
-/*kart içi bilgi satırları*/
-.neo-card-info {
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--text-muted);
-  margin: 0;
-}
-.neo-card-info strong {
-  color: #374151;
-  font-weight: 600;
-}
-
-/*butonları tutan alt kutu*/
-.neo-btn-group {
+.sidebar-logo {
   display: flex;
+  align-items: center;
   gap: 10px;
-  margin-top: auto; 
+  padding: 0 24px 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 16px;
 }
 
-/*düzenleme,silme ve yeni ekleme düğmelerinin ortak gövdesi*/
-.neo-btn-action {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
+.sidebar-logo span {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.sidebar-nav {
   flex: 1;
-  height: 38px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 12px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
   border-radius: 8px;
-  border: none;
-  box-shadow: none;
+  color: #A8B4C4;
+  text-decoration: none;
   font-size: 14px;
+  font-weight: 500;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.nav-item:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--white);
+}
+
+.nav-item.active {
+  background: var(--teal);
+  color: var(--white);
+}
+
+.nav-logout {
+  margin: auto 12px 0;
+  color: #A8B4C4;
+}
+
+.nav-logout:hover {
+  background: rgba(220, 38, 38, 0.15);
+  color: #FCA5A5;
+}
+
+/* SAĞ İÇERİK */
+.main-content {
+  flex: 1;
+  background: var(--bg);
+  padding: 28px 36px;
+  overflow-x: auto;
+}
+
+/* ÜST BAR */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+}
+
+.top-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ARAMA KUTUSU */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 14px;
+  height: 40px;
+  width: 320px;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  font-size: 13px;
+  width: 100%;
+  background: transparent;
+}
+
+/* BUTONLAR */
+.btn-outline-action {
+  height: 40px;
+  padding: 0 20px;
+  border: 1px solid var(--navy);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-solid-action {
+  height: 40px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--navy);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* TABLO */
+.table-card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(11, 31, 58, 0.06);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead tr {
+  background: var(--bg);
+  border-bottom: 2px solid var(--border);
+}
+
+th {
+  text-align: left;
+  padding: 14px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  padding: 16px 18px;
+  font-size: 14px;
+  color: #374151;
+  border-bottom: 1px solid var(--border);
+}
+
+tbody tr:hover {
+  background: #F0F4F8;
+}
+
+.name-cell {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.action-cell {
+  display: flex;
+  gap: 16px;
+}
+
+.action-link {
+  background: none;
+  border: none;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s ease;
   text-decoration: none;
 }
 
-/*yeni ekle,düzenle ve sil butonlarının renkleri*/
-.neo-btn-success-custom { background-color: #2563eb; color: #fff; } /* Yeni Ekle — mavi kalsın */
-.neo-btn-warning-custom { background-color: #4f46e5; color: #fff; } /* Düzenle — indigo */
-.neo-btn-danger-custom { background-color: #e11d48; color: #fff; }
-
-.neo-btn-action:hover {
-  opacity: 0.88;
+.action-link.edit {
+  color: var(--navy);
 }
 
-/* Boş Rehber Uyarısı */
-.neo-alert-info {
-  background: var(--bg-soft);
-  padding: 20px;
-  border: 1px solid var(--border-soft);
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  text-align: center;
-  font-weight: 500;
-  color: var(--main-color);
+.action-link.delete {
+  color: var(--danger);
 }
 
-/* Arama kutusu - Uiverse */
-.search {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-  width: 100%;
-  max-width: 500px;
-  margin-bottom: 25px;
+.action-link:hover {
+  text-decoration: underline;
 }
 
-.search__input {
-  font-family: inherit;
-  font-size: 16px;
-  background-color: #f4f2f2;
-  border: none;
-  color: #646464;
-  padding: 1rem 1.2rem;
-  border-radius: 30px;
-  width: 100%;
-  transition: all ease-in-out .5s;
-  margin-right: -2rem;
-}
-
-.search__input:hover,
-.search__input:focus {
-  box-shadow: 0 0 1em #00000013;
-}
-
-.search__input:focus {
-  outline: none;
-  background-color: #f0eeee;
-}
-
-.search__input::-webkit-input-placeholder {
-  font-weight: 100;
-  color: #ccc;
-}
-
-.search__input:focus + .search__button {
-  background-color: #f0eeee;
-}
-
-.search__button {
-  border: none;
-  background-color: #f4f2f2;
-  margin-top: .1em;
-}
-
-.search__button:hover {
-  cursor: pointer;
-}
-
-.search__icon {
-  height: 1.3em;
-  width: 1.3em;
-  fill: #b4b4b4;
-}
-
-/* 1. Dropdown Menüyü Belirginleştirme (Kartların üstünde kalsın ve mat beyaz olsun) */
-::ng-deep .p-paginator .p-dropdown {
-  background-color: #ffffff !important;
-  border: 2px solid #323232 !important; 
-  border-radius: 6px !important;
-  z-index: 100 !important;
-}
-
-/* Dropdown açıldığında listenin kendisi kartların arkasında kalmasın */
-::ng-deep .p-dropdown-panel {
-  background-color: #ffffff !important;
-  border: 2px solid #323232 !important;
-  z-index: 9999 !important; /* Kartların kesinlikle üstünde kalmasını sağlar */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
-}
-
-/* 2. Sayfa Butonlarının Arasını Açma (Space/Gap) */
-::ng-deep .p-paginator .p-paginator-pages .p-paginator-page {
-  margin: 0 6px !important; /* Sayfa numaralarının (1, 2, 3) sağ-sol aralığını açar */
-  border-radius: 6px !important;
-}
-
-/* İleri/Geri ok butonlarının da arasını açma */
-::ng-deep .p-paginator .p-paginator-first,
-::ng-deep .p-paginator .p-paginator-prev,
-::ng-deep .p-paginator .p-paginator-next,
-::ng-deep .p-paginator .p-paginator-last {
-  margin: 0 4px !important;
-}
-
+/* PAGINATOR */
 .paginator-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 24px;
+  margin-top: 20px;
   padding: 12px;
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: var(--white);
+  border: 1px solid var(--border);
   border-radius: 12px;
+}
+
+/* BOŞ DURUM */
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-muted);
+}
+
+.empty-state h4 {
+  color: var(--navy);
+  margin: 0 0 8px;
+}
+
+.empty-state p {
+  margin: 0;
+}
+
+/* İSTATİSTİK ÇUBUĞU */
+.stat-bar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 28px;
+  min-width: 160px;
+}
+
+.stat-icon {
+  width: 30px;
+  height: 30px;
+  color: var(--navy);
+  opacity: 0.35;
+}
+
+.stat-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
 }

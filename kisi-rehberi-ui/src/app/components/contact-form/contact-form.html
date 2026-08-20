@@ -1,107 +1,129 @@
+<div class="page-layout">
 
-<div class="container">
-  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="neo-form-card">
-    
-    <!-- Düzenleme modunda ise kişiyi düzenler değil ise yeni kişi ekler otomatik olarak -->
-    <h3>{{ isEditMode ? '✏️ Kişiyi Düzenle' : '➕ Yeni Kişi Ekle' }}</h3>
-    <hr class="form-divider">
-
-    <!-- başarı hata bildirimleri-->
-    <div class="neo-alert neo-alert-success" *ngIf="successMessage">
-      {{ successMessage }}
-    </div>
-    <div class="neo-alert neo-alert-danger" *ngIf="errorMessage">
-      {{ errorMessage }}
+  <!-- SOL PANEL (SIDEBAR) — contact-list ile aynı -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 40 40" width="32" height="32" fill="none">
+        <text x="3" y="29" font-family="Arial, sans-serif" font-weight="800" font-size="22" fill="#FFFFFF" letter-spacing="-1">K</text>
+        <text x="18" y="29" font-family="Arial, sans-serif" font-weight="800" font-size="22" fill="#FFFFFF" letter-spacing="-1" opacity="0.6">R</text>
+      </svg>
+      <span>Kişi Rehberi</span>
     </div>
 
-    <!-- Ad Alanı -->
-    <div class="input-group-custom">
-      <label for="firstName">Ad</label>      <!-- eğer kutuya fareyle dokunulmuşsa ve içi boş geçilmişse kutunun gölgesini kırmızıya boyar -->
-      <input id="firstName" type="text" class="neo-input" formControlName="firstName"
-             [ngClass]="{'is-invalid': contactForm.get('firstName')?.touched && contactForm.get('firstName')?.invalid}">
-      <!-- ad alanı dokunulduysa ve boş geçildiyse kırmızı yanar -->
-      <div class="error-text" *ngIf="contactForm.get('firstName')?.touched && contactForm.get('firstName')?.invalid">
-        Ad alanı boş bırakılamaz.
+    <nav class="sidebar-nav">
+      <a routerLink="/contacts" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Kişiler
+      </a>
+      <a routerLink="/logs" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        Log Paneli
+      </a>
+    </nav>
+  </aside>
+
+  <!-- SAĞ İÇERİK -->
+  <main class="main-content">
+
+    <!-- ÜST BAR -->
+    <div class="top-bar">
+      <div>
+        <h2 class="page-title">{{ isEditMode ? 'Kişiyi Düzenle' : 'Yeni Kişi Ekle' }}</h2>
+        <p class="page-subtitle">{{ isEditMode ? 'Mevcut kişi bilgilerini güncelleyin' : 'Rehbere yeni bir kayıt oluşturun' }}</p>
       </div>
+      
     </div>
 
-    <!-- Soyad Alanı -->
-    <div class="input-group-custom">
-      <label for="lastName">Soyad</label>
-      <input id="lastName" type="text" class="neo-input" formControlName="lastName"
-             [ngClass]="{'is-invalid': contactForm.get('lastName')?.touched && contactForm.get('lastName')?.invalid}">
-      <div class="error-text" *ngIf="contactForm.get('lastName')?.touched && contactForm.get('lastName')?.invalid">
-        Soyad alanı boş bırakılamaz.
+    <!-- BİLDİRİMLER -->
+    <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="alert alert-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+    <!-- FORM KARTI -->
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="form-card">
+
+      <div class="form-grid">
+        <!-- Ad -->
+        <div class="field">
+          <label for="firstName">Ad <span class="req">*</span></label>
+          <input id="firstName" type="text" formControlName="firstName"
+                 [class.is-invalid]="contactForm.get('firstName')?.touched && contactForm.get('firstName')?.invalid">
+          <div class="error-text" *ngIf="contactForm.get('firstName')?.touched && contactForm.get('firstName')?.invalid">
+            Ad alanı boş bırakılamaz.
+          </div>
+        </div>
+
+        <!-- Soyad -->
+        <div class="field">
+          <label for="lastName">Soyad <span class="req">*</span></label>
+          <input id="lastName" type="text" formControlName="lastName"
+                 [class.is-invalid]="contactForm.get('lastName')?.touched && contactForm.get('lastName')?.invalid">
+          <div class="error-text" *ngIf="contactForm.get('lastName')?.touched && contactForm.get('lastName')?.invalid">
+            Soyad alanı boş bırakılamaz.
+          </div>
+        </div>
+
+        <!-- Telefon -->
+        <div class="field">
+          <label for="phoneNumber">Telefon Numarası <span class="req">*</span></label>
+          <input id="phoneNumber" type="text" formControlName="phoneNumber"
+                 placeholder="05551234567" maxlength="11"
+                 (keypress)="onPhoneKeyPress($event)"
+                 [class.is-invalid]="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.invalid">
+          <span class="helper-text">10 veya 11 haneli, yalnızca rakam</span>
+          <div class="error-text" *ngIf="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.invalid">
+            <span *ngIf="contactForm.get('phoneNumber')?.errors?.['required']">Telefon numarası boş bırakılamaz.</span>
+            <span *ngIf="contactForm.get('phoneNumber')?.errors?.['pattern']">Telefon 10 veya 11 haneli olmalı.</span>
+          </div>
+        </div>
+
+        <!-- E-posta -->
+        <div class="field">
+          <label for="email">E-posta Adresi <span class="req">*</span></label>
+          <input id="email" type="email" formControlName="email"
+                 placeholder="ornek@domain.com"
+                 [class.is-invalid]="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+          <span class="helper-text">Örn. ornek&#64;domain.com</span>
+          <div class="error-text" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+            <span *ngIf="contactForm.get('email')?.errors?.['required']">E-posta alanı boş bırakılamaz.</span>
+            <span *ngIf="contactForm.get('email')?.errors?.['email']">Geçerli bir e-posta formatı giriniz.</span>
+          </div>
+        </div>
+
+        <!-- Şehir -->
+        <div class="field">
+          <label for="city">Şehir</label>
+          <input id="city" type="text" formControlName="city" placeholder="İstanbul">
+        </div>
+
+        <!-- Meslek -->
+        <div class="field">
+          <label for="occupationId">Meslek</label>
+          <select id="occupationId" formControlName="occupationId">
+            <option [ngValue]="null">Meslek seçiniz</option>
+            <option *ngFor="let occ of occupations" [ngValue]="occ.id">{{ occ.name }}</option>
+          </select>
+        </div>
       </div>
-    </div>
 
-    <!-- Telefon Numarası Alanı -->
-    <div class="input-group-custom">
-      <label for="phoneNumber">Telefon Numarası</label>
-      <input id="phoneNumber" type="text"
-      class="neo-input"
-      formControlName="phoneNumber"
-       placeholder="Örn: 05551112233"
-       maxlength="11"
-       (keypress)="onPhoneKeyPress($event)"
-       [ngClass]="{'is-invalid': contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.invalid}">
-      <div class="error-text" *ngIf="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.invalid">
-        <span *ngIf="contactForm.get('phoneNumber')?.errors?.['required']">
-          Telefon numarası boş bırakılamaz.
-        </span>
-        <span *ngIf="contactForm.get('phoneNumber')?.errors?.['pattern']">
-          Telefon 10 veya 11 haneli olmalı ve sadece rakam içermelidir.
-        </span>
+      <!-- ALT BUTONLAR -->
+      <div class="form-actions">
+        <a routerLink="/contacts" class="btn-cancel">İptal</a>
+        <button type="submit" class="btn-save"
+                [disabled]="contactForm.invalid || isSubmitting">
+          {{ isSubmitting ? 'Kaydediliyor...' : (isEditMode ? 'Değişiklikleri Kaydet' : 'Kişiyi Kaydet') }}
+        </button>
       </div>
-    </div>
 
-    <!-- E-posta Adresi Alanı -->
-    <div class="input-group-custom">
-      <label for="email">E-posta Adresi</label>
-      <input id="email" type="email" class="neo-input" formControlName="email" placeholder="Örn: ornek@mail.com"
-             [ngClass]="{'is-invalid': contactForm.get('email')?.touched && contactForm.get('email')?.invalid}">
-      <div class="error-text" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
-        <!-- iki aşamalı kontrol eğer bomboş ise required eğer dolu ama @ ve düzgün uzantı yoksa ikincisi-->
-        <span *ngIf="contactForm.get('email')?.errors?.['required']">E-posta alanı boş bırakılamaz.</span>
-        <span *ngIf="contactForm.get('email')?.errors?.['email']">Lütfen geçerli bir e-posta formatı giriniz.</span>
-      </div>
-    </div>
-
-    <div class="input-group-custom">
-        <label for="city">Şehir</label>
-        <input id="city" type="text"
-        class="neo-input"
-        formControlName="city"
-               placeholder="Örn:İstanbul"
-        >
-    </div>
-
-<!-- Meslek Dropdown -->
-<div class="input-group-custom">
-  <label for="occupationId">Meslek</label>
-  <select id="occupationId" class="neo-input" formControlName="occupationId">
-    <!-- value null: meslek seçilmeden kayıt mümkün -->
-    <option [ngValue]="null">Meslek seçiniz</option>
-
-    <!-- API'den gelen meslekleri listele -->
-    <option *ngFor="let occ of occupations" [ngValue]="occ.id">
-      {{ occ.name }}
-    </option>
-  </select>
-</div>
-    
-    <!-- Butonlar -->    
-    <!-- Kaydet:neo-btn dolan barımız.Düzenleme modundaysak değişiklikleri kaydediyor değilsek kişiyi kaydediyor -->
-    <button type="submit" class="neo-btn"
-        [disabled]="contactForm.invalid || isSubmitting"
-        [ngClass]="isEditMode ? 'btn-warning-custom' : 'btn-primary-custom'">
-     {{ isSubmitting ? 'Kaydediliyor...' : (isEditMode ? 'Değişiklikleri Kaydet' : 'Kişiyi Kaydet') }}
-    </button>
-    
-    <!-- iptal/geri dönüş linki -- routerLink:sayfayı yenilemeden kullanıcıyı anında rehber listesine geri yollar  -->
-    <a routerLink="/contacts" class="neo-btn neo-btn-cancel text-decoration-none">
-      ❌ İptal Et / Geri Dön
-    </a>
-
-  </form> 
+    </form>
+  </main>
 </div>
