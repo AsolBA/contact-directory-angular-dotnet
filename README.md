@@ -46,7 +46,7 @@ docker compose up --build
 |--------|--------|
 | UI | http://localhost:4200 |
 | API | http://localhost:5163 |
-| Postgres | container içi `db:5432` (dışarıya port açılmamış) |
+| Postgres | `localhost:5433` (container içi `db:5432`) |
 
 Compose ortamında bağlantı dizesi ve JWT anahtarı `docker-compose.yml` içindeki environment değişkenleriyle verilir. API ayağa kalkınca migration’ları uygular; meslek tablosu boşsa örnek meslekleri seed eder.
 
@@ -105,13 +105,13 @@ Compose ortamında bağlantı dizesi ve JWT anahtarı `docker-compose.yml` için
 
 ![Giriş veya kayıt ekranı](docs/screenshots/01-login.png)
 
-Uygulama açılınca login ekranı gelir. Hesabınız yoksa **Kayıt Ol** ile admin oluşturabilir, ardından kullanıcı adı ve şifre ile **Giriş Yap** dersiniz. Başarılı girişte JWT token kaydedilir ve rehber listesine yönlendirilirsiniz.
+Uygulama açılınca login ekranı gelir. Hesabınız yoksa **Yeni Admin Kaydı** ile admin oluşturabilir, ardından kullanıcı adı ve şifre ile **Giriş Yap** dersiniz. Başarılı girişte JWT token kaydedilir ve rehber listesine yönlendirilirsiniz.
 
 ### 2) Kişi listesi
 
 ![Kişi listesi ekranı](docs/screenshots/02-contact-list.png)
 
-Rehberde kayıtlı kişiler kartlar halinde listelenir (ad, soyad, telefon, e-posta, meslek, **şehir**). Üstten arama yapabilir (şehir dahil); **Yeni Kişi Ekle**, **Excel’e Aktar**, **Log Paneli** veya **Çıkış Yap** butonlarını kullanabilirsiniz.
+Rehberde kayıtlı kişiler tabloda listelenir (ad, soyad, telefon, e-posta, meslek, **şehir**). Üstten arama yapabilir (şehir dahil); **Excel Aktar** ve **Yeni Kişi** ile işlem yapabilirsiniz. Sol menüden **Log Paneli**ne gidebilir veya **Çıkış** yapabilirsiniz.
 
 ### 3) Yeni kişi ekleme
 
@@ -149,7 +149,7 @@ Listede **Excel’e Aktar** ile o anki filtrelenmiş liste (arama boşsa tüm ki
 
 ![Log paneli](docs/screenshots/06-logs.png)
 
-**Log Paneli**nde admin işlemleri izlenir: soldan admin seçilir, sağda pasta grafik; altta giriş/çıkış ve kişi işlem tabloları görünür.
+**Log Paneli**nde admin işlemleri izlenir: üstte toplam log / aktif admin / bugünkü işlem özeti; soldan admin seçilir, sağda işlem dağılımı grafiği; altta giriş-çıkış ve kişi işlem tabloları görünür.
 
 ---
 
@@ -213,5 +213,5 @@ Compose kendi Postgres volume’ünü kullanır; local Postgres’teki veriler o
 
 - **Meslek ekleme / yönetim ekranı:** Backend endpoint’leri mevcut; frontend’de meslek yönetim sekmesi yok.
 - **Excel / CSV içe aktarma:** Dışa aktarma tamamlandı; dosyadan toplu kişi yükleme eklenebilir.
-- **Kişi kartı detay popup’ı:** Kart tıklanınca detay modal’ı.
+- **Kişi detay popup’ı:** Satır tıklanınca detay modal’ı.
 - **RBAC:** Temel admin girişi var; daha zengin rol / yetki modeli.
